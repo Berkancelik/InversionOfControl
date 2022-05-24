@@ -1,3 +1,4 @@
+using IOC.Web.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -23,6 +24,11 @@ namespace IOC.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<ISingletonDateService, DateService>();
+            // SingletonDateService ile karþýlaþýrsan nesne örneði oluþtur her yerde oluþtur. 
+            services.AddScoped<IScopedDateService, DateService>();
+            // gördüðün her yerde nesne örnei oluþtur anlamýný taþýmaktadýr.
+            services.AddTransient<ITransitDateService, DateService>();
             services.AddControllersWithViews();
         }
 
